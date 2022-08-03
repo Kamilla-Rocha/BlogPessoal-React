@@ -1,0 +1,17 @@
+.imagem2 {
+    background-image: url(https://loupbr.com/wp-content/uploads/2017/12/imagem-criacao-de-sites-600x450px.png);
+    background-Repeat: no-repeat;
+    width: 100vh;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+
+}
+.texto2{
+    font-weight: bold !important;
+}
+
+.btnCancelar{
+    margin-right: 20px !important;
+
+}
