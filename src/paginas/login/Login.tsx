@@ -16,10 +16,12 @@ function Login() {
     const [userLogin, setUserLogin] = useState<UserLogin>(
 
         {
-            nome: '',
-            usuario: '',
-            senha: '',
-            token: ''
+            id:0,
+            nome:'',
+            usuario:'',
+            senha:'',
+            foto:'',
+            token:''
         }
     )
 
@@ -40,11 +42,10 @@ function Login() {
 
         try {
             await login(`/usuarios/logar`, userLogin, setToken)
-
-
             alert('Usuário logado com sucesso!');
+
         } catch (error) {
-            alert('Dados do usuário inconsistencia. Erro ao logar!')
+            alert('Dados do usuário inconsistentes. Erro ao logar!')
 
         }
     }
