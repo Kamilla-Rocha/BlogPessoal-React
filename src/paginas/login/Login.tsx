@@ -2,26 +2,27 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Box, Typography, TextField, Button } from '@mui/material';
 import { Grid } from '@material-ui/core';
 import { Link, useNavigate } from 'react-router-dom';
-import useLocalStorage from 'react-use-localstorage';
 import { login } from '../../services/Service';
 import UserLogin from '../../models/UserLogin';
 import './Login.css';
+import { useDispatch } from 'react-redux';
+
+
 
 
 function Login() {
     let history = useNavigate();
-
-
-    const [token, setToken] = useLocalStorage('token');
+    const dispatch = useDispatch();
+    const [token, setToken] = useState('');
     const [userLogin, setUserLogin] = useState<UserLogin>(
 
         {
-            id:0,
-            nome:'',
-            usuario:'',
-            senha:'',
-            foto:'',
-            token:''
+            id: 0,
+            nome: '',
+            usuario: '',
+            senha: '',
+            foto: '',
+            token: ''
         }
     )
 
@@ -33,6 +34,7 @@ function Login() {
     }
     useEffect(() => {
         if (token != '') {
+            dispatch(addToken(token));
             history('/home')
         }
     }, [token])
@@ -87,3 +89,7 @@ function Login() {
 }
 
 export default Login;
+
+function addToken(token: string): any {
+    throw new Error('Function not implemented.');
+}

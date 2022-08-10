@@ -3,16 +3,19 @@ import { Link } from 'react-router-dom'
 import { Box, Card, CardActions, CardContent, Button, Typography } from '@mui/material'
 import Tema from '../../../models/Tema';
 import './ListaTema.css';
-import useLocalStorage from 'react-use-localstorage';
 import { useNavigate } from 'react-router-dom';
 import { busca } from '../../../services/Service';
+import { useSelector } from 'react-redux';
+import { TokenState } from '../../../store/tokens/tokensReducer';
 
 
 
 function ListaTema() {
-    const [temas, setTema] = useState<Tema[]>([])
-    const [token, setToken] = useLocalStorage('token');
+    const [temas, setTemas] = useState<Tema[]>([])
     let history = useNavigate();
+    const token = useSelector<TokenState, TokenState["tokens"]>(
+        (state) => state.tokens
+      );
 
     useEffect(() => {
         if (token == '') {
@@ -22,7 +25,7 @@ function ListaTema() {
     }, [token])
 
     async function getTema() {
-        await busca("/temas", setTema, {
+        await busca("/temas", setTemas, {
             headers: {
                 "Authorization": token
             }
@@ -50,14 +53,14 @@ function ListaTema() {
                     <CardActions>
                         <Box display="flex" justifyContent="center" mb={1.5} >
 
-                            <Link to={'/formulatoTema/${tema.id}'} className="text-decorator-none">
+                            <Link to={`/formulatoTema/${temas.id}`} className="text-decorator-none">
                                 <Box mx={1}>
                                     <Button variant="contained" className="marginLeft" size='small' color="primary" >
                                         Atualizar
                                     </Button>
                                 </Box>
                             </Link>
-                            <Link to={'/deletar/${tema.id}'} className="text-decorator-none">
+                            <Link to={`/deletar/${temas.id}`} className="text-decorator-none">
                                 <Box mx={1}>
                                     <Button variant="contained" size='small' color="secondary">
                                         Deletar
