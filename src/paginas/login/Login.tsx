@@ -1,20 +1,19 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
-import { Box, Typography, TextField, Button } from '@mui/material';
-import { Grid } from '@material-ui/core';
+import { Box, Typography, TextField, Button,Grid  } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../services/Service';
 import UserLogin from '../../models/UserLogin';
 import './Login.css';
 import { useDispatch } from 'react-redux';
-
-
+import { addToken } from '../../store/tokens/actions';
 
 
 function Login() {
-    let history = useNavigate();
+    let navigate = useNavigate();
     const dispatch = useDispatch();
     const [token, setToken] = useState('');
     const [userLogin, setUserLogin] = useState<UserLogin>(
+        
 
         {
             id: 0,
@@ -27,17 +26,20 @@ function Login() {
     )
 
     function updatedModel(e: ChangeEvent<HTMLInputElement>) {
+
         setUserLogin({
             ...userLogin,
             [e.target.name]: e.target.value
         })
     }
-    useEffect(() => {
-        if (token != '') {
+
+    useEffect(()=>{
+        if(token != ''){
             dispatch(addToken(token));
-            history('/home')
+            navigate('/home')
         }
     }, [token])
+
 
     async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -90,6 +92,3 @@ function Login() {
 
 export default Login;
 
-function addToken(token: string): any {
-    throw new Error('Function not implemented.');
-}
